@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 	<title> Countdown Timer </title>
+</head>
+
+<body style="color:silver;background-color:black;" background="http://screenshots.en.sftcdn.net/en/scrn/94000/94769/fifa-2010-world-cup-wallpaper-1.jpg">
+ 
+ 	<br>
+		<center>
+ 			<h1> 
+ 				<p color="http://screenshots.en.sftcdn.net/en/scrn/94000/94769/fifa-2010-world-cup-wallpaper-1.jpg;"> 
+						COUNTDOWN TO FIFA WORLD CUP!!
+ 				</p>
+ 			</h1>
+
+				<input type="datetime-local" id="myDateTime" value="2016-08-29T12:17:47"style="color:silver;font-weight:bold;font-								family:courier;background-  color:aqua; font-size: 150%">    
+  				<br>
+ 				<p style="color:white;font-weight:bold;font-family:verdana;font-size:70%;" >
+ 					 **Enter date and time in local format**
+				 </p>
+
+ 				<input type="button" id="myBtn" onclick="myFunction()" value="SET NEW DATE AND BEGIN COUNTDOWN!!!"style="color:aqua;font-				weight:bold;font-  family:courier;background-color:silver; font-size: 150%;">   
+		</center>
+
+  	<br>
+  	<br>
+ 	<p style="font-weight:bold;font-family:verdana;font-size:100%;">
+  		Entered date and time is:
+	</p>
+ 	<p id="date" style="color:white;font-weight:bold;font-family:verdana;font-size:70%;"> 
+	</p>
+
+ 	<p style="font-weight:bold;font-family:verdana;font-size:80%;">
+  			 Time left  ->   <center> <h3> Days : Hours : Minutes : Seconds </h3> </center>
+  	</p> 
+ 
+
+ 	<center>
+ 		 <h2>
+   			<p id ="countdown" class="timer" style="color:white;font-weight:bold;font-family:courier;"></p>
+  		</h2>
+	</center>
+
+<script>
+
+var date2,date1,date1_ms,date2_ms,difference_ms,seconds;
+
+function myFunction() 
+{
+ 	date1= new Date();   // present date.time
+ 	date2 = new Date(document.getElementById("myDateTime").value); //date,time from user
+
+ 	date1ms = date1.getTime();
+ 	date2ms = date2.getTime();
+
+ 	differencems = date2ms - date1ms;   //number of milliseconds from now till deadline.
+		
+	if(differencems <= 0)
+		{
+			window.alert("ERROR ! ENTER A DATE IN THE FUTURE!!");
+		} 
+	else
+	{ 
+
+ 	seconds=Math.floor(differencems/1000)-19800;  //converting into GMT+5.30
+ 	date3=(date2ms/1000 -19800)*1000;              //19800 seconds in 5:30 hours
+ 	var d = new Date(date3);
+	document.getElementById('date').innerHTML =d;
+	document.getElementById("myBtn").value="RESET DATE AND BEGIN COUNTDOWN!!!";  
+	}
+}
+
+function timer()
+{
+
+     var days        = Math.floor(seconds/24/60/60);
+     var hoursLeft   = Math.floor((seconds) - (days*86400));
+     var hours       = Math.floor(hoursLeft/3600);
+     var minutesLeft = Math.floor((hoursLeft) - (hours*3600));
+     var minutes     = Math.floor(minutesLeft/60);
+     var remainingSeconds = seconds % 60;
+     if (remainingSeconds < 10) 
+   	{
+          remainingSeconds = "0" + remainingSeconds;   // to display 2 digits in seconds always.
+      	}
+
+     document.getElementById('countdown').innerHTML = days+"  "+ ":"+ "  " + hours+"  "+ ":" +"  "+ minutes+"  "+ ":" +"  "+remainingSeconds;
+
+     if (seconds == 0)
+        {
+         clearInterval(countdownTimer);
+         document.getElementById('countdown').innerHTML = "THE WORLD CUP IS HERE!";
+        }
+   else
+       {
+         seconds--;
+       }
+}
+
+var countdownTimer = setInterval('timer()',1000);
+
+</script>
+</body>
+</html>
